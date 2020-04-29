@@ -6,7 +6,6 @@ import hashlib
 # Fazendo a requisição HTTP via GET dos dados da API e armazenando-os em forma de JSON   
 response = requests.get("https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=03f386cb7c6fe496efcb34186179f09b0dd0e081")
 json_data = response.json()
-# json_data = json.loads(response.content.decode('utf-8'))
 
 # Escrevendo e formatando os dados num arquivo JSON
 with open('answer.json', 'w') as outfile:
@@ -32,15 +31,14 @@ resumo_criptografico = hashlib.sha1(decifrado.encode('utf-8')).hexdigest() # ger
 data['decifrado'] = decifrado
 data['resumo_criptografico'] = resumo_criptografico
 
-# Reescrevendo o arquivo JSON com as respostas preenchida
+# Reescrevendo o arquivo JSON com as respostas preenchidas
 with open ('answer.json', 'w') as outfile:
     json.dump(data, outfile, indent=1)
 
 
 # Enviando o arquivo com uma requisição HTTPS do tipo POST
-url = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=03f386cb7c6fe496efcb34186179f09b0dd0e081'
-
-files = {'file': open('answer.json', 'rb')}
+url = "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=03f386cb7c6fe496efcb34186179f09b0dd0e081"
+files = {'answer': ('answer', open('answer.json', 'rb'))}
 
 r = requests.post(url, files=files)
 print(r.status_code)
