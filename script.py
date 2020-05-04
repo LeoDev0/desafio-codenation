@@ -41,7 +41,7 @@ data['resumo_criptografico'] = resumo_criptografico
 with open ('answer.json', 'w') as file:
     json.dump(data, file, indent=1)
 
-# Enviando o arquivo com uma requisição HTTPS do tipo POST
+# Enviando o arquivo com uma requisição HTTP do tipo POST
 file = {'answer': open('answer.json', 'rb')}
 post_response = requests.post(post_url, files=file)
 print(post_response.status_code)
